@@ -10,19 +10,27 @@
 <style>
 body {
     font-family: Arial;
-    background: #0f172a;
+    background: linear-gradient(135deg, #0f172a, #020617);
     color: white;
     text-align: center;
     margin: 0;
+    animation: fadeIn 1s ease-in;
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
 }
 
 header {
     padding: 20px;
     background: #020617;
+    animation: slideDown 0.8s ease;
 }
 
-h1 {
-    margin: 0;
+@keyframes slideDown {
+    from {transform: translateY(-50px); opacity: 0;}
+    to {transform: translateY(0); opacity: 1;}
 }
 
 .container {
@@ -35,6 +43,11 @@ input {
     border-radius: 8px;
     border: none;
     margin: 5px;
+    transition: 0.3s;
+}
+
+input:focus {
+    transform: scale(1.05);
 }
 
 button {
@@ -45,20 +58,25 @@ button {
     color: white;
     cursor: pointer;
     margin: 5px;
+    transition: 0.3s;
 }
 
 button:hover {
     background: #16a34a;
+    transform: scale(1.1);
 }
 
 #qrcode {
     margin-top: 20px;
+    animation: fadeIn 0.5s ease;
 }
 
 .ad {
     margin: 20px;
     padding: 20px;
     background: #1e293b;
+    border-radius: 10px;
+    animation: fadeIn 2s ease;
 }
 
 footer {
@@ -73,60 +91,39 @@ footer {
 
 <header>
     <h1>Crear QR Online Gratis</h1>
-    <p>Generador rápido y fácil</p>
+    <p>Rápido, gratis y sin registro</p>
 </header>
 
 <div class="container">
 
-    <h2>🔗 Generar QR desde enlace</h2>
+    <h2>🔗 Generar QR</h2>
     <input type="text" id="link" placeholder="Pega tu enlace">
     <br>
     <button onclick="generarQR()">Generar QR</button>
 
-    <h2>📱 QR de WhatsApp</h2>
-    <input type="text" id="numero" placeholder="Número (ej: 549381...)">
-    <input type="text" id="mensaje" placeholder="Mensaje">
-    <br>
-    <button onclick="qrWhatsapp()">Generar QR WhatsApp</button>
-
     <div id="qrcode"></div>
+
     <br>
-    <button onclick="descargarQR()">Descargar QR</button>
+    <button onclick="descargarQR()">Descargar</button>
 
 </div>
 
 <div class="ad">
-    <!-- PEGAR AQUI CODIGO ADSENSE -->
     <p>Publicidad</p>
 </div>
 
 <footer>
-    © 2026 crearqronline.com
+    © 2026 crearqronline
 </footer>
 
 <script>
-let qr;
-
 function generarQR() {
     document.getElementById("qrcode").innerHTML = "";
+
     let link = document.getElementById("link").value;
 
-    qr = new QRCode(document.getElementById("qrcode"), {
+    new QRCode(document.getElementById("qrcode"), {
         text: link,
-        width: 200,
-        height: 200
-    });
-}
-
-function qrWhatsapp() {
-    document.getElementById("qrcode").innerHTML = "";
-    let num = document.getElementById("numero").value;
-    let msg = document.getElementById("mensaje").value;
-
-    let url = `https://wa.me/${num}?text=${encodeURIComponent(msg)}`;
-
-    qr = new QRCode(document.getElementById("qrcode"), {
-        text: url,
         width: 200,
         height: 200
     });
